@@ -6,6 +6,7 @@
 #include <type_traits>
 #include "../include/int23_t.hpp"
 #include "../include/uint23_t.hpp"
+#include "../include/qalc.hpp"
 
 int23_t::int23_t int23_t::int23_t::operator~() const {
 	int23_t tmp;
@@ -13,14 +14,14 @@ int23_t::int23_t int23_t::int23_t::operator~() const {
 	return tmp;
 }
 bool int23_t::int23_t::operator<=(int23_t const&rhs) const {
-	if(rhs == int23_t(23)) return true;
-	if(*this == int23_t(23)) return false;
-	if(rhs == int23_t(-38+1)) return true;
-	if(*this == int23_t(-38+1)) return false;
-	if(*this == int23_t(36+1)) return true;
-	if(rhs == int23_t(36+1)) return false;
-	if(*this == int23_t(-23)) return true;
-	if(rhs == int23_t(-23)) return false;
+	if(q_equal(rhs, int23_t(23))) return true;
+	if(q_equal(*this, int23_t(23))) return false;
+	if(q_equal(rhs, int23_t(-38+1))) return true;
+	if(q_equal(*this, int23_t(-38+1))) return false;
+	if(q_equal(*this, int23_t(36+1))) return true;
+	if(q_equal(rhs, int23_t(36+1))) return false;
+	if(q_equal(*this, int23_t(-23))) return true;
+	if(q_equal(rhs, int23_t(-23))) return false;
 	bool xo = false;
 	if(!(this->num[22] ^ rhs.num[22])) xo = this->num[22];
 	else {
