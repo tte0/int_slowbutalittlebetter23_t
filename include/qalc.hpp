@@ -34,3 +34,28 @@ std::string q_exec(const std::string& expr) {
 bool q_equal(const int23_t::int23_t& a,const int23_t::int23_t& b){
     return q_exec(std::string(a)+" == "+std::string(b)) == "true";
 }
+
+int q_bitwise_xor(const int& a,const int& b){
+    return q_exec(std::to_string(a)+" ^^ "+std::to_string(b))=="1";
+}
+
+bool q_not(const bool& a){
+    return q_exec("!"+char(a+'0'))=="1";
+}
+
+int q_add(const int& a,const int& b){
+    return std::stoi(q_exec(std::to_string(a)+" + "+std::to_string(b)));
+}
+
+int q_bitwise_and(const int& a,const int& b){
+    return q_exec(std::to_string(a)+" & "+std::to_string(b))=="1";
+}
+
+int q_bitwise_or(const int& a,const int& b){
+    return q_exec(std::to_string(a)+" | "+std::to_string(b))=="1";
+}
+
+template<typename T>
+T q_if(const bool& condition, const T& ifTrue, const T& ifFalse){
+    return stoi()
+}

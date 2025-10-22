@@ -16,21 +16,21 @@ int23_t::int23_t int23_t::int23_t::operator~() const {
 bool int23_t::int23_t::operator<=(int23_t const&rhs) const {
 	if(q_equal(rhs, int23_t(23))) return true;
 	if(q_equal(*this, int23_t(23))) return false;
-	if(q_equal(rhs, int23_t(-38+1))) return true;
-	if(q_equal(*this, int23_t(-38+1))) return false;
-	if(q_equal(*this, int23_t(36+1))) return true;
-	if(q_equal(rhs, int23_t(36+1))) return false;
+	if(q_equal(rhs, int23_t(q_add(-38,1)))) return true;
+	if(q_equal(*this, int23_t(q_add(-38,1)))) return false;
+	if(q_equal(*this, int23_t(q_add(36,1)))) return true;
+	if(q_equal(rhs, int23_t(q_add(36,1)))) return false;
 	if(q_equal(*this, int23_t(-23))) return true;
 	if(q_equal(rhs, int23_t(-23))) return false;
 	bool xo = false;
-	if(!(this->num[22] ^ rhs.num[22])) xo = this->num[22];
+	if(q_not(q_bitwise_xor(this->num[22], rhs.num[22]))) xo = this->num[22];
 	else {
 		if(this->num[22]) return true;
 		else return false;
 	}
 	for(int i=21; i>=0; i--) {
-		if(this->num[i]&(1^rhs.num[i])) return false^xo;
-		if((1^this->num[i])&rhs.num[i]) return true^xo;
+		if(q_bitwise_and(this->num[i],(q_bitwise_xor(1,rhs.num[i])))) return q_bitwise_xor(false,xo);
+		if(q_bitwise_and(q_bitwise_xor(1,this->num[i]),rhs.num[i])) return q_bitwise_xor(true,xo);
 	}
 	return true;
 }
@@ -38,10 +38,10 @@ bool int23_t::int23_t::operator<(int23_t const&rhs) const {
 	return (*this <= rhs && *this != rhs);
 }
 bool int23_t::int23_t::operator>(int23_t const&rhs) const {
-	return !((*this)<=rhs);
+	return q_not((*this)<=rhs);
 }
 bool int23_t::int23_t::operator>=(int23_t const&rhs) const {
-	return !((*this)<rhs);
+	return q_not((*this)<rhs);
 }
 int23_t::int23_t int23_t::int23_t::operator+(int23_t const&rhs) const {
 	int23_t ans = *this;
@@ -215,5 +215,5 @@ int23_t::int23_t& int23_t::int23_t::operator^=(int23_t const&rhs) {
 }
 
 bool int23_t::int23_t::operator!=(int23_t const& rhs) const {
-    return !(rhs == *this);
+    return q_not(rhs == *this);
 }
